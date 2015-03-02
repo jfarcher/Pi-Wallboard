@@ -14,9 +14,13 @@ hostname $hname
 apt-get update
 apt-get upgrade -y
 
-apt-get install chromium vim x11-xserver-utils ttf-mscorefonts-installer xwit sqlite3 libnss3 unclutter -y
+apt-get install chromium vim x11-xserver-utils ttf-mscorefonts-installer xwit sqlite3 libnss3 unclutter puppet -y
 
-cat <<EOF>/etc/xdg/lxsession/LXDE/autostart
+sed -i s/START=no/START=yes/g /etc/default/puppet
+update-rc.d lightdm enable 2
+sed /etc/lightdm/lightdm.conf -i -e "s/^#autologin-user=.*/autologin-user=pi/"
+
+cat <<EOF>/etc/xdg/lxsession/LXDE-pi/autostart
 @xset s off
 @xset -dpms
 @xset s noblank
