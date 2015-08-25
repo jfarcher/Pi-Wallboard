@@ -111,9 +111,6 @@ echo "disable_overscan=1" >>/boot/config.txt
 fi
 
 
-
-
-
 cat <<EOF>>/var/spool/cron/crontabs/root
 30 17 * * * /usr/local/sbin/tvoff.sh
 00 08 * * * /usr/local/sbin/tvon.sh
@@ -126,6 +123,43 @@ apt-get install puppet -y
 sed -i s/START=no/START=yes/g /etc/default/puppet
 puppet agent -t
 puppet agent -t
+else
+cat <<EOF> /etc/rc.local
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+/usr/local/sbin/restart-browser.sh
+exit 0
+EOF
+
+cat <<EOF> /usr/local/sbin/restart-browser.sh
+#!/bin/bash
+
+inotifywait -m -r -e CLOSE_WRITE /etc/|while read file
+do
+        if (echo $file|grep wallboardurl.conf|grep -v sw)
+        then
+                echo "Restarting Browser"
+                killall chromium
+                sudo -u pi      DISPLAY=:0 chromium --kiosk `cat /etc/wallboardurl.conf`&
+        fi
+done
+EOF
 fi
 
 /sbin/reboot
