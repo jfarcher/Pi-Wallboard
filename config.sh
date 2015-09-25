@@ -49,7 +49,7 @@ while true; do
     read -p "Does your Pi require the use of a proxy to gain access to the internet? (Y/N)" yn
     case $yn in
 	[Yy]* ) echo "Please enter the proxy server (http://server:port)"; read proxy;break;;
-        [Nn]* ) exit;;
+        [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -79,12 +79,12 @@ ln -s /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/IcedTeaPlugin.so /usr/lib/
 
 update-rc.d lightdm enable 2
 sed /etc/lightdm/lightdm.conf -i -e "s/^#autologin-user=.*/autologin-user=pi/"
+sed /etc/default/unclutter -i -e "s/-idle 1/-idle 0.1/g"
 
 cat <<EOF>/etc/xdg/lxsession/LXDE-pi/autostart
 @xset s off
 @xset -dpms
 @xset s noblank
-@unclutter -idle 0.1 -root
 @chromium --kiosk \`cat /etc/wallboardurl.conf\`
 EOF
 
