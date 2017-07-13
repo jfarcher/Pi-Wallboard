@@ -5,13 +5,6 @@ class wallboards {
                 source => "puppet:///modules/wallboards/wallboardurl.conf.$hostname",
                 mode => 0775
         }
-          file {"/etc/rc.local":
-                ensure => file,
-                source => "puppet:///modules/wallboards/rc.local",
-                owner  => root,
-                mode   => 0755
-        }
-
 
         file {"/usr/local/sbin/restart-browser.sh":
                 ensure => file,
