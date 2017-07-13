@@ -1,0 +1,7 @@
+[Unit]
+
+[Service]
+ExecStart=/usr/local/sbin/restart-browser.sh
+
+[Install]
+WantedBy=default.target
