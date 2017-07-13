@@ -6,7 +6,11 @@ do
         then
                 echo "Restarting Browser"
                 killall chromium
+                rm -rf /home/pi/.cache/chromium
+                rm -rf /home/pi/.config/chromium
+
                 sudo -u pi      DISPLAY=:0 chromium --kiosk `cat /etc/wallboardurl.conf`&
         fi
 done
+
 
