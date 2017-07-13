@@ -36,7 +36,7 @@ file {"/etc/systemd/system/restart-browser.service":
 }
 file {"/usr/local/sbin/restart-browser.sh":
         ensure => file,
-        source => "puppet:///modules/wallboards/$restartfile",
+        source => "puppet:///modules/wallboards/restart-browser.sh",
         owner  => root,
         mode   => "0755"
 }
