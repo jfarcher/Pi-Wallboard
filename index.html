@@ -48,17 +48,17 @@
 
 <p><code>chmod +x config.sh</code></p>
 
-<p><code>sudo ./config.sh</code></p>
+<p><code>sudo ./config-jessie.sh</code></p>
 
-<p>Complete the install by answering any questions presented.</p>
+<p>Complete the install by answering any questions presented. This will prep the pi with the latest updates and install puppet agent ready.</p>
 
-<p>A puppet module is also included to allow central configuration, ideal if multiple screens are to be deployed. Simply copy the puppet directory to your puppetmasters modules directory</p>
+<p>A puppet server is required to host central configuration, Simply copy the puppet directory to your puppet servers modules directory</p>
 
 <p><code>cp -r puppet /etc/puppet/modules/wallboards</code></p>
 
-<p>the files directory contains a sample configuration, these should be stored in the format wallboard.conf-hostname. Replacing hostname with the actual short hostname of your raspberry pi.</p>
+<p>The files directory contains a sample configuration, these should be stored in the format wallboard.conf-hostname. Replacing hostname with the actual short hostname of your raspberry pi.</p>
 
-<p>Should you not employ a puppet environment this will be recognised during the install and relevant puppet based configuration be applied.</p>
+
         </section>
 
         <aside id="sidebar">
